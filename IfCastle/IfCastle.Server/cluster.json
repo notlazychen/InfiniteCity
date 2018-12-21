@@ -1,0 +1,17 @@
+﻿{
+  "Name": "PVP",
+  "ClusterId": "ifcastle",
+  "ServiceId": "rpg",
+  "clustering": {
+    "Invariant": "MySql.Data.MySqlClient",
+    "ConnectionString": "server=101.132.118.172;port=3306;database=rpg_cluster;userid=root;password=chenrong.123;"
+  },
+  "storage": {
+    "Invariant": "MySql.Data.MySqlClient",
+    "ConnectionString": "server=101.132.118.172;port=3306;database=rpg_storage;userid=root;password=chenrong.123;"
+  },
+  "endpoint": {
+    "GatewayPort": 3000,
+    "SiloPort": 2000
+  }
+}

@@ -1,0 +1,7 @@
+﻿{
+  "Name": "PVP",
+  "ClusterId": "ifcastle",
+  "ServiceId": "rpg",
+  "Invariant": "MySql.Data.MySqlClient",
+  "ConnectionString": "server=101.132.118.172;port=3306;database=rpg_cluster;userid=root;password=chenrong.123;TreatTinyAsBoolean=true;"
+}
