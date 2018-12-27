@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Interface", "IfCas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Grain", "IfCastle.Grain\IfCastle.Grain.csproj", "{A55EEF5E-AB8F-444B-8419-11F83E287FFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IfCastle.Server", "IfCastle.Server\IfCastle.Server.csproj", "{47735D18-A49C-4F10-8DEE-D1B53029C1F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Server", "IfCastle.Server\IfCastle.Server.csproj", "{47735D18-A49C-4F10-8DEE-D1B53029C1F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IfCastle.Client", "IfCastle.Client\IfCastle.Client.csproj", "{CD94E6ED-5A50-4B9E-8293-E402737C910A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Client", "IfCastle.Client\IfCastle.Client.csproj", "{CD94E6ED-5A50-4B9E-8293-E402737C910A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbBlock", "Tetris\NbBlock.csproj", "{E2443FB2-8719-4878-95AF-85B49E9CEF17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CD94E6ED-5A50-4B9E-8293-E402737C910A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD94E6ED-5A50-4B9E-8293-E402737C910A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD94E6ED-5A50-4B9E-8293-E402737C910A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2443FB2-8719-4878-95AF-85B49E9CEF17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2443FB2-8719-4878-95AF-85B49E9CEF17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2443FB2-8719-4878-95AF-85B49E9CEF17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2443FB2-8719-4878-95AF-85B49E9CEF17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

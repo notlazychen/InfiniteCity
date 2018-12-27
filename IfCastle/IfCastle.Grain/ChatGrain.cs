@@ -1,5 +1,5 @@
-﻿using IfCastle.Interfaces;
-using IfCastle.Interfaces.ObServers;
+﻿using IfCastle.Interface;
+using IfCastle.Interface.ObServers;
 using Orleans;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,9 @@
-﻿using IfCastle.Interfaces.ObServers;
+﻿using IfCastle.Interface.ObServers;
 using Orleans;
 using System;
 using System.Threading.Tasks;
 
-namespace IfCastle.Interfaces
+namespace IfCastle.Interface
 {
     public interface IChat: IGrainWithIntegerKey
     {

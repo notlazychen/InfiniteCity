@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IfCastle.Interfaces.ObServers
+namespace IfCastle.Interface.ObServers
 {
     public interface IChatObserver : IGrainObserver
     {

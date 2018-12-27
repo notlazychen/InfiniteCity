@@ -4,14 +4,15 @@
   "ServiceId": "rpg",
   "clustering": {
     "Invariant": "MySql.Data.MySqlClient",
-    "ConnectionString": "server=101.132.118.172;port=3306;database=rpg_cluster;userid=root;password=chenrong.123;"
+    "ConnectionString": "server=localhost;port=3306;database=rpg_cluster;userid=root;password=xxxxxx;"
   },
   "storage": {
     "Invariant": "MySql.Data.MySqlClient",
-    "ConnectionString": "server=101.132.118.172;port=3306;database=rpg_storage;userid=root;password=chenrong.123;"
+    "ConnectionString": "server=localhost;port=3306;database=rpg_storage;userid=root;password=xxxxxx;"
   },
   "endpoint": {
     "GatewayPort": 3000,
     "SiloPort": 2000
-  }
+  },
+  "IP": "192.168.2.80"
 }

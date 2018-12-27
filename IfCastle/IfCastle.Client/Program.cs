@@ -1,5 +1,8 @@
-﻿using IfCastle.Interfaces;
+﻿using IfCastle.Interface;
+using IfCastle.Interface.Model;
+using IfCastle.Interface.ObServers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
@@ -19,13 +22,38 @@ namespace IfCastle.Client
                 using (var client = StartClientWithRetries().Result)
                 {
                     Console.WriteLine("连接服务成功");
-                    var friend = client.GetGrain<IChat>(0);
-                    string inputstr = null;
-                    while (inputstr != "Q")
+                    var guid = Guid.NewGuid();
+                    var game = client.GetGrain<IBlockGame>(guid);
+
+                    var stream = client.GetStreamProvider(Constants.GameRoomStreamProvider).GetStream<GameFrameMsg>(guid, Constants.GameRoomStreamNameSpace);
+                    //subscribe to the stream to receiver furthur messages sent to the chatroom
+                    stream.SubscribeAsync(new GameObServer());
+                    //var observer = client.CreateObjectReference<IChatObserver>(new GameObServer()).Result;
+                    //game.Subscribe(observer);
+                    game.Start();
+
+                    while (true)
                     {
-                        inputstr = Console.ReadLine();
-                        var response = friend.SayHello(inputstr).Result;
-                        Console.WriteLine("\n\n{0}\n\n", response);
+                        var x = Console.ReadKey();
+                        switch (x.Key)
+                        {
+                            case ConsoleKey.W:
+                                game.Move(Direction.Up).Wait();
+                                break;
+                            case ConsoleKey.S:
+                                game.Move(Direction.Down).Wait();
+                                break;
+                            case ConsoleKey.A:
+                                game.Move(Direction.Left).Wait();
+                                break;
+                            case ConsoleKey.D:
+                                game.Move(Direction.Right).Wait();
+                                break;
+                        }
+                        if(x.Key == ConsoleKey.Q)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -45,17 +73,19 @@ namespace IfCastle.Client
 
             IClusterClient client;
             client = new ClientBuilder()
-                .UseAdoNetClustering(options =>
-                {
-                    options.Invariant = ops.Invariant;
-                    options.ConnectionString = ops.ConnectionString;
-                })
+                .UseLocalhostClustering()                
+                //.UseAdoNetClustering(options =>
+                //{
+                //    options.Invariant = ops.Invariant;
+                //    options.ConnectionString = ops.ConnectionString;
+                //})
                 .Configure<ClusterOptions>(options =>
                 {
                     options.ClusterId = ops.ClusterId;
                     options.ServiceId = ops.ServiceId;
                 })
                 .ConfigureLogging(logging => logging.AddNLog())
+                .AddSimpleMessageStreamProvider(Constants.GameRoomStreamProvider)
                 .Build();
 
             await client.Connect(RetryFilter);

@@ -10,6 +10,8 @@ namespace IfCastle.Server
         public string Name { get; set; }
         public string ClusterId { get; set; }
         public string ServiceId { get; set; }
+        public string IP { get; set; }
+
         public AdoNetOptions Clustering { get; set; }
         public AdoNetOptions Storage { get; set; }
 

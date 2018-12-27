@@ -1,4 +1,5 @@
 ﻿using IfCastle.Grains;
+using IfCastle.Interface;
 using Microsoft.Extensions.Configuration;
 using NLog.Extensions.Logging;
 using Orleans;
@@ -47,57 +48,41 @@ namespace IfCastle.Server
             var config = configuration.Get<GameClusterOptions>();
 
             var builder = new SiloHostBuilder()
-                .UseAdoNetClustering(options =>
-                {
-                    options.Invariant = config.Clustering.Invariant;
-                    options.ConnectionString = config.Clustering.ConnectionString;
-                })
-                .AddAdoNetGrainStorage("Default", options =>
-                {
-                    options.Invariant = config.Storage.Invariant;
-                    options.ConnectionString = config.Storage.ConnectionString;
-                    options.UseJsonFormat = true;
-                })
+                .UseLocalhostClustering()
+                //.UseAdoNetClustering(options =>
+                //{
+                //    options.Invariant = config.Clustering.Invariant;
+                //    options.ConnectionString = config.Clustering.ConnectionString;
+                //})
+                .AddMemoryGrainStorageAsDefault()
+                //.AddAdoNetGrainStorage("Default", options =>
+                //{
+                //    options.Invariant = config.Storage.Invariant;
+                //    options.ConnectionString = config.Storage.ConnectionString;
+                //    options.UseJsonFormat = true;
+                //})
                .Configure<ClusterOptions>(options =>
                {
                    options.ClusterId = config.ClusterId;
                    options.ServiceId = config.ServiceId;
                })
                .Configure<EndpointOptions>(options =>
-                {
-                    options.GatewayPort = config.Endpoint.GatewayPort;
-                    options.SiloPort = config.Endpoint.SiloPort;
-                    options.AdvertisedIPAddress = IPAddress.Loopback;
-                })
-               //.Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
+               {
+                   //options.GatewayPort = config.Endpoint.GatewayPort;
+                   //options.SiloPort = config.Endpoint.SiloPort;
+                   options.AdvertisedIPAddress = IPAddress.Loopback;
+               })
+               //.Configure<EndpointOptions>(options =>
+               //{
+               //    options.GatewayPort = config.Endpoint.GatewayPort;
+               //    options.SiloPort = config.Endpoint.SiloPort;
+               //    options.AdvertisedIPAddress = IPAddress.Parse(config.IP);
+               //})
                .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(ChatGrain).Assembly).WithReferences())
-               .ConfigureLogging(logging => logging.AddNLog());
+               .ConfigureLogging(logging => logging.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties = true }))
+               .AddMemoryGrainStorage("PubSubStore")
+               .AddSimpleMessageStreamProvider(Constants.GameRoomStreamProvider);
 
-            //var builder = new SiloHostBuilder()
-            //    .UseAdoNetClustering(options =>
-            //    {
-            //        options.Invariant = config.Clustering.Invariant;
-            //        options.ConnectionString = config.Clustering.ConnectionString;
-            //    })
-            //    .AddAdoNetGrainStorage("Default", options =>
-            //    {
-            //        options.Invariant = config.Storage.Invariant;
-            //        options.ConnectionString = config.Storage.ConnectionString;
-            //        options.UseJsonFormat = true;
-            //    })
-            //    .Configure<ClusterOptions>(options =>
-            //    {
-            //        options.ClusterId = config.ClusterId;
-            //        options.ServiceId = config.ServiceId;
-            //    })
-            //    .Configure<EndpointOptions>(options =>
-            //    {
-            //        options.GatewayPort = config.Endpoint.GatewayPort;
-            //        options.SiloPort = config.Endpoint.SiloPort;
-            //        options.AdvertisedIPAddress = IPAddress.Loopback;
-            //    })
-            //    .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(ChatGrain).Assembly).WithReferences())
-            //    .ConfigureLogging(logging => logging.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties = true }));
             var host = builder.Build();
             await host.StartAsync();
             return host;
