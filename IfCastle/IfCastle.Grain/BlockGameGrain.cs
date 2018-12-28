@@ -30,17 +30,35 @@ namespace IfCastle.Grain
             if(!state.IsBuild)
             {
                 state.Build(10, 20);
-                this.RegisterTimer(OnFrameAsync, state, TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(1));
+                this.RegisterTimer(OnFrameAsync, state, TimeSpan.FromSeconds(0), TimeSpan.FromMilliseconds(500));
             }
             return Task.CompletedTask;
         }
 
         private async Task OnFrameAsync(object state)
         {
+            var cells = this.State.Cells;
+
             //擦除当前的方块
             State.ClearBlock();
 
-            var cells = this.State.Cells;
+            //检查游戏结束
+            bool isGameOver = false;
+            for (int x = 0; x < cells.GetLength(0); x++)
+            {
+                if (cells[x, 0].IsFill)
+                {
+                    isGameOver = true;
+                    break;
+                }
+            }
+            if (isGameOver)
+            {
+                //_obss.Notify(client => client.ReceiveMessage("Game Over!"));
+                await _stream.OnNextAsync(new GameFrameMsg("Game Over!"));
+                return;
+            }
+
             //检查消除
             for (int y = 0; y < cells.GetLength(1); y++)
             {
@@ -75,22 +93,6 @@ namespace IfCastle.Grain
                     }
                 }
             }
-            //检查游戏结束
-            bool isGameOver = false;
-            for (int x = 0; x < cells.GetLength(0); x++)
-            {
-                if (cells[x, 0].IsFill)
-                {
-                    isGameOver = true;
-                    break;
-                }
-            }
-            if (isGameOver)
-            {
-                //_obss.Notify(client => client.ReceiveMessage("Game Over!"));
-                await _stream.OnNextAsync(new GameFrameMsg("Game Over!"));
-                return;
-            }
 
             //方块碰撞检测，如果到底取消方块
             if (this.State.Block != null)
@@ -110,7 +112,7 @@ namespace IfCastle.Grain
             {
                 var rand = new Random(DateTime.Now.Second);
                 int i = rand.Next(0, BlockTable.Blocks.Count);
-                this.State.Block = BlockTable.Blocks[i];
+                this.State.Block = BlockTable.Blocks[1];
                 this.State.Block.X = this.State.Width / 2;
                 this.State.Block.Y = 0;
             }
@@ -122,7 +124,7 @@ namespace IfCastle.Grain
 
             //通知前端当前帧状态
             var sb = this.State.Print();
-            await _stream.OnNextAsync(new GameFrameMsg(sb));
+            await _stream.OnNextAsync(new GameFrameMsg($"[{this.GetPrimaryKey()}]" + sb));
             //_obss.Notify(client => client.ReceiveMessage(sb));
             //return Task.CompletedTask;
         }

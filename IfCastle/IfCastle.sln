@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Client", "IfCastle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbBlock", "Tetris\NbBlock.csproj", "{E2443FB2-8719-4878-95AF-85B49E9CEF17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roy.Utils", "Roy.Utils\Roy.Utils.csproj", "{B37500C6-A097-498A-8560-E60DAD805AE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E2443FB2-8719-4878-95AF-85B49E9CEF17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2443FB2-8719-4878-95AF-85B49E9CEF17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2443FB2-8719-4878-95AF-85B49E9CEF17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B37500C6-A097-498A-8560-E60DAD805AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B37500C6-A097-498A-8560-E60DAD805AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B37500C6-A097-498A-8560-E60DAD805AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B37500C6-A097-498A-8560-E60DAD805AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

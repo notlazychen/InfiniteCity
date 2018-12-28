@@ -14,29 +14,41 @@ namespace IfCastle.Grain.Blocks
         {
             switch (_Orientation)
             {
+                //  *
+                //  x
+                // **
                 case 0:
-                    yield return (X - 1, Y);
+                    yield return (X - 1, Y + 1);
+                    yield return (X, Y + 1);
                     yield return (X, Y);
                     yield return (X, Y - 1);
-                    yield return (X, Y - 2);
                     break;
+                // *
+                // *x*
+                // 
                 case 1:
+                    yield return (X - 1, Y -1);
+                    yield return (X - 1, Y);
+                    yield return (X, Y);
+                    yield return (X + 1, Y);
+                    break;
+                //  **
+                //  x
+                //  *
+                case 2:
+                    yield return (X + 1, Y - 1);
                     yield return (X, Y - 1);
                     yield return (X, Y);
-                    yield return (X + 1, Y);
-                    yield return (X + 2, Y);
-                    break;
-                case 2:
-                    yield return (X + 1, Y);
-                    yield return (X, Y);
                     yield return (X, Y + 1);
-                    yield return (X, Y + 2);
                     break;
+                //  
+                // *x*
+                //   *
                 case 3:
-                    yield return (X, Y + 1);
-                    yield return (X, Y);
                     yield return (X - 1, Y);
-                    yield return (X - 2, Y);
+                    yield return (X, Y);
+                    yield return (X + 1, Y);
+                    yield return (X + 1 , Y + 1);
                     break;
             }
         }
