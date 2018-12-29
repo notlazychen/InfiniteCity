@@ -14,8 +14,9 @@ namespace IfCastle.Client
         {
             try
             {
-                using(var client = new Client())
+                using(IClient client = new Client4Net())
                 {
+                    //client.ConnectAsync("ws://127.0.0.1:8088").Wait();
                     client.ConnectAsync("ws://101.132.118.172:8088").Wait();
 
                     Console.WriteLine("连接成功, 请输入命令回车结束, 请选择:");
@@ -34,7 +35,7 @@ namespace IfCastle.Client
                         c = Console.ReadLine();
                         client.SendAsync($"enter {c}").Wait();
                     }
-
+                    Console.Clear();
                     Console.WriteLine("--------");
                     Console.WriteLine($"↑");
                     Console.WriteLine($"↑");

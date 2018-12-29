@@ -40,13 +40,23 @@ namespace IfCastle.Gateway
                 };
                 socket.OnMessage = async message =>
                 {
-                    await OnSocketMessageAsync(socket, message);
+                    try
+                    {
+                        await OnSocketMessageAsync(socket, message);
+                    }
+                    catch (Exception)
+                    {
+                        socket.Close();
+                    }
                 };
+                socket.OnBinary = data => socket.Send(data);
                 socket.OnError = (error) =>
                 {
                     _clients.TryRemove(socket.ConnectionInfo.Id, out var con);
                     OnSocketError(socket, error);
                 };
+                socket.OnPing = (data) => socket.SendPong(data);
+                //socket.OnPong = (data) => socket.SendPing(data);                
             });
         }
 

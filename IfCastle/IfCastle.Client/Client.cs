@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace IfCastle.Client
 {
-    public class Client :IDisposable
+    public class Client : IClient
     {
         private readonly ClientWebSocket _ws = new ClientWebSocket();
         private readonly byte[] _buffer;
         private int _offset = 0;
+
+        /// <summary>
+        /// 网络延迟
+        /// </summary>
+        public int NetDelay { get; private set; }
 
         public Client(int bufferSize = 10240)
         {
@@ -50,7 +55,7 @@ namespace IfCastle.Client
 
         protected virtual void OnMessage(string msg)
         {
-            Console.SetCursorPosition(0, 17);
+            Console.SetCursorPosition(0, 9);
             Console.WriteLine(msg);
             //Console.SetCursorPosition(0, 17);
         }

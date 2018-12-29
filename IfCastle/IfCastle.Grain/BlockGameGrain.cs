@@ -52,7 +52,6 @@ namespace IfCastle.Grain
             }
             if (isGameOver)
             {
-                //_obss.Notify(client => client.ReceiveMessage("Game Over!"));
                 await _stream.OnNextAsync(new GameFrameMsg("Game Over!"));
                 return;
             }
@@ -96,9 +95,9 @@ namespace IfCastle.Grain
             if (this.State.Block != null)
             {
                 ///检查是否触底，触底则放弃方块
-                var maxY = State.Block.Shape().Where(s => s.X >= 0 && s.Y >= 0 && s.X < this.State.Width && s.Y < this.State.Height)
-                    .Max(x => x.Y);
-                if (State.Block.Shape().Where(s => s.X >= 0 && s.Y >= 0 && s.X < this.State.Width && s.Y < this.State.Height).Where(s => s.Y == maxY)
+                //var maxY = State.Block.Shape().Where(s => s.X >= 0 && s.Y >= 0 && s.X < this.State.Width && s.Y < this.State.Height)
+                //    .Max(x => x.Y);
+                if (State.Block.Shape().Where(s => s.X >= 0 && s.Y >= 0 && s.X < this.State.Width && s.Y < this.State.Height)//.Where(s => s.Y == maxY)
                     .Any(s => s.Y + 1 == State.Height || this.State.Cells[s.X, s.Y + 1].IsFill))
                 {
                     this.State.PlaceBlock();
