@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IfCastle.Client
+namespace IfCastle.Gateway
 {
     public class ServiceOptions
     {

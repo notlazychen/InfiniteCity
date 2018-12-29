@@ -6,20 +6,15 @@ using System.Threading.Tasks;
 
 namespace IfCastle.Interface
 {
-    public interface IBlockGame : IGrainWithGuidKey
+    public interface IPlayer : IGrainWithGuidKey
     {
-        Task<Guid> Start();
-
-        Task Move(Direction direction);
+        Task<Guid> CreateRoom();
+        Task EnterRoom(Guid roomId);
+        Task CloseRoom();
 
         Task PauseOrResume();
-
-        Task Close();
         Task Restart();
-    }
 
-    public enum Direction
-    {
-        Up, Down, Left, Right
+        Task Move(Direction direction);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using IfCastle.Interface.Model;
-using IfCastle.Interface.ObServers;
 using Microsoft.Extensions.Logging;
 using Orleans.Streams;
 using System;
@@ -7,12 +6,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IfCastle.Client
+namespace IfCastle.Gateway
 {
-    public class GameObServer : IAsyncObserver<GameFrameMsg>
+    public class GatewayObServer : IAsyncObserver<GameFrameMsg>
     {
-        public GameObServer()
+        private GatewayServer _server;
+        private Guid _socketId;
+
+        public GatewayObServer(GatewayServer server, Guid socketId)
         {
+            _socketId = socketId;
+            _server = server;
         }
 
         public Task OnCompletedAsync()
@@ -27,11 +31,11 @@ namespace IfCastle.Client
             return Task.CompletedTask;
         }
 
-        public Task OnNextAsync(GameFrameMsg item, StreamSequenceToken token = null)
+        public async Task OnNextAsync(GameFrameMsg item, StreamSequenceToken token = null)
         {
-            Console.Clear();
-            Console.WriteLine(item.Text);
-            return Task.CompletedTask;
+            //Console.Clear();
+            await _server.SendAsync(_socketId, item.Text);
+            //Console.WriteLine(item.Text);
         }
     }
 }

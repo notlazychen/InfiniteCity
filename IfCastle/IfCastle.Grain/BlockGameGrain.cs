@@ -1,8 +1,6 @@
 ﻿using IfCastle.Grain.Blocks;
-using IfCastle.Grains;
 using IfCastle.Interface;
 using IfCastle.Interface.Model;
-using IfCastle.Interface.ObServers;
 using Orleans;
 using Orleans.Streams;
 using System;
@@ -173,16 +171,21 @@ namespace IfCastle.Grain
                 this.State.PlaceBlock();
                 var sb = this.State.Print();
                 //_obss.Notify(client => client.ReceiveMessage(sb));
-                await _stream.OnNextAsync(new GameFrameMsg(sb));
+                await _stream.OnNextAsync(new GameFrameMsg($"[{this.GetPrimaryKey()}]" + sb));
             }
         }
 
-        public Task Pause()
+        public Task PauseOrResume()
         {
             throw new NotImplementedException();
         }
 
-        public Task Resume()
+        public Task Close()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Restart()
         {
             throw new NotImplementedException();
         }

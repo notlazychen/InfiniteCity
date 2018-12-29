@@ -1,4 +1,4 @@
-﻿using IfCastle.Grains;
+﻿using IfCastle.Grain;
 using IfCastle.Interface;
 using Microsoft.Extensions.Configuration;
 using NLog.Extensions.Logging;
@@ -78,7 +78,7 @@ namespace IfCastle.Server
                //    options.SiloPort = config.Endpoint.SiloPort;
                //    options.AdvertisedIPAddress = IPAddress.Parse(config.IP);
                //})
-               .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(ChatGrain).Assembly).WithReferences())
+               .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(PlayerGrain).Assembly).WithReferences())
                .ConfigureLogging(logging => logging.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties = true }))
                .AddMemoryGrainStorage("PubSubStore")
                .AddSimpleMessageStreamProvider(Constants.GameRoomStreamProvider);
