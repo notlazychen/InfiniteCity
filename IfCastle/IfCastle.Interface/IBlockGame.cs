@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace IfCastle.Interface
 {
-    public interface IBlockGame : IGrainWithGuidKey
+    public interface IBlockGame : IGrainWithIntegerKey
     {
-        Task Start();
+        Task<Guid> Start();
 
         Task Move(Direction direction);
 

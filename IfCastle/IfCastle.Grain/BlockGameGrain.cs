@@ -24,7 +24,7 @@ namespace IfCastle.Grain
             return base.OnActivateAsync();
         }
 
-        public Task Start()
+        public Task<Guid> Start()
         {
             var state = this.State;
             if(!state.IsBuild)
@@ -32,7 +32,7 @@ namespace IfCastle.Grain
                 state.Build(10, 20);
                 this.RegisterTimer(OnFrameAsync, state, TimeSpan.FromSeconds(0), TimeSpan.FromMilliseconds(500));
             }
-            return Task.CompletedTask;
+            return Task.FromResult(_stream.Guid);
         }
 
         private async Task OnFrameAsync(object state)
@@ -111,8 +111,8 @@ namespace IfCastle.Grain
             if (this.State.Block == null)
             {
                 var rand = new Random(DateTime.Now.Second);
-                int i = rand.Next(0, BlockTable.Blocks.Count);
-                this.State.Block = BlockTable.Blocks[1];
+                int i = rand.Next(0, this.State.Blocks.Count);
+                this.State.Block = this.State.Blocks[i];
                 this.State.Block.X = this.State.Width / 2;
                 this.State.Block.Y = 0;
             }
@@ -190,7 +190,7 @@ namespace IfCastle.Grain
 
     public class BlockTable
     {
-        public static readonly IList<BlockBase> Blocks = new List<BlockBase> {
+        public readonly IList<BlockBase> Blocks = new List<BlockBase> {
             new BlockI(),
             new BlockJ(),
             new BlockL(),
@@ -278,7 +278,7 @@ namespace IfCastle.Grain
     public class Cell
     {
         public ConsoleColor Color { get; set; }
-        public bool IsFill { get; set; }
+        public bool IsFill { get; set; } = false;
 
         public int X { get; }
         public int Y { get; }

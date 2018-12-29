@@ -23,14 +23,13 @@ namespace IfCastle.Client
                 {
                     Console.WriteLine("连接服务成功");
                     var guid = Guid.NewGuid();
-                    var game = client.GetGrain<IBlockGame>(guid);
-
-                    var stream = client.GetStreamProvider(Constants.GameRoomStreamProvider).GetStream<GameFrameMsg>(guid, Constants.GameRoomStreamNameSpace);
-                    //subscribe to the stream to receiver furthur messages sent to the chatroom
-                    stream.SubscribeAsync(new GameObServer());
+                    var game = client.GetGrain<IBlockGame>(0);
                     //var observer = client.CreateObjectReference<IChatObserver>(new GameObServer()).Result;
                     //game.Subscribe(observer);
-                    game.Start();
+                    var streamId = game.Start().Result;
+
+                    var stream = client.GetStreamProvider(Constants.GameRoomStreamProvider).GetStream<GameFrameMsg>(streamId, Constants.GameRoomStreamNameSpace);
+                    stream.SubscribeAsync(new GameObServer());
 
                     while (true)
                     {
