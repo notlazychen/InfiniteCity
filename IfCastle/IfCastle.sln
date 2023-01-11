@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2042
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Interface", "IfCastle.Interface\IfCastle.Interface.csproj", "{1B1D1ADE-15CF-4D9D-B152-3C79111F069F}"
 EndProject
@@ -11,11 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Server", "IfCastle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Client", "IfCastle.Client\IfCastle.Client.csproj", "{CD94E6ED-5A50-4B9E-8293-E402737C910A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbBlock", "Tetris\NbBlock.csproj", "{E2443FB2-8719-4878-95AF-85B49E9CEF17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NbBlock", "Tetris\NbBlock.csproj", "{E2443FB2-8719-4878-95AF-85B49E9CEF17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roy.Utils", "Roy.Utils\Roy.Utils.csproj", "{B37500C6-A097-498A-8560-E60DAD805AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roy.Utils", "Roy.Utils\Roy.Utils.csproj", "{B37500C6-A097-498A-8560-E60DAD805AE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IfCastle.Gateway", "IfCastle.Gateway\IfCastle.Gateway.csproj", "{5A018EB4-42BE-4019-84C2-968677FE7B0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfCastle.Gateway", "IfCastle.Gateway\IfCastle.Gateway.csproj", "{5A018EB4-42BE-4019-84C2-968677FE7B0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{579F15A2-A951-4BE5-9B24-E8799972D7FF}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
