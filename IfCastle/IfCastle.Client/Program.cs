@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System;
 using System.Net.WebSockets;
 using System.Text;
@@ -16,8 +15,8 @@ namespace IfCastle.Client
             {
                 using(IClient client = new Client4Net())
                 {
-                    //client.ConnectAsync("ws://127.0.0.1:8088").Wait();
-                    client.ConnectAsync("ws://101.132.118.172:8088").Wait();
+                    client.ConnectAsync("ws://127.0.0.1:8088").Wait();
+                    //client.ConnectAsync("ws://101.132.118.172:8088").Wait();
 
                     Console.WriteLine("连接成功, 请输入命令回车结束, 请选择:");
                     Console.WriteLine("--------");
